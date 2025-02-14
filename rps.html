@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .game-container {
+            text-align: center;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        button {
+            background-color: #2980b9;
+            color: #fff;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        button:hover {
+            background-color: #3498db;
+            transform: translateY(-2px);
+        }
+        button:active {
+            background-color: #2980b9;
+            transform: translateY(0);
+        }
+        .result {
+            font-size: 1.4rem;
+            margin-top: 20px;
+            color: #2980b9;
+            font-weight: bold;
+        }
+        .play-again-btn {
+            background-color: #27ae60;
+            color: #fff;
+            padding: 12px 25px;
+            margin-top: 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease-in-out;
+        }
+        .play-again-btn:hover {
+            background-color: #2ecc71;
+            transform: translateY(-2px);
+        }
+        .play-again-btn:active {
+            background-color: #27ae60;
+            transform: translateY(0);
+        }
+        .choices {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .choices button {
+            margin: 0 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Rock Paper Scissors</h1>
+        <div class="choices">
+            <button onclick="playGame('Rock')">Rock</button>
+            <button onclick="playGame('Paper')">Paper</button>
+            <button onclick="playGame('Scissors')">Scissors</button>
+        </div>
+
+        <div class="result" id="result"></div>
+        <div id="play-again" class="play-again-btn" onclick="resetGame()">Play Again</div>
+    </div>
+
+    <script>
+        function playGame(userMove) {
+            const availableMoves = ["Rock", "Paper", "Scissors"];
+            const computerMove = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+            const result = determineWinner(userMove, computerMove);
+
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `Computer chose: <span style="color: #e74c3c;">${computerMove}</span><br>${result}`;
+
+            document.getElementById("play-again").style.display = "block";
+        }
+
+        function determineWinner(userMove, computerMove) {
+            if (userMove === computerMove) {
+                return "It's a tie!";
+            }
+
+            if ((userMove === "Rock" && computerMove === "Scissors") ||
+                (userMove === "Paper" && computerMove === "Rock") ||
+                (userMove === "Scissors" && computerMove === "Paper")) {
+                return "You won! Congratulations!";
+            } else {
+                return "Computer won! Better luck next time!";
+            }
+        }
+
+        function resetGame() {
+            document.getElementById("result").innerHTML = '';
+            document.getElementById("play-again").style.display = "none";
+        }
+    </script>
+</body>
+</html>
